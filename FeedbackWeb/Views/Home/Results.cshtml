@@ -1,0 +1,37 @@
+﻿@using FeedbackWeb.Models;
+@using System.Collections;
+
+@model Presentation
+
+@{
+  ViewBag.Title = @Model.Title;
+}
+
+<table id="results">
+<thead><tr><th>Name</th><th>Email</th>
+@foreach (var r in Model.Template.Ratings)
+{
+  <th style="max-width:4em">@r.Name</th>
+}
+<th>Date</th>
+</tr></thead>
+<tbody>
+@foreach (var f in Model.Feedbacks)
+{
+  <tr>
+    <td>@f.Name</td>
+    <td>@f.Email</td>
+    @foreach (var r in f.Ratings)
+    {
+      <td title="@r.Comment">@r.Value</td>
+    }
+    <td>@f.CreatedDate</td>
+    <td>@if (!string.IsNullOrWhiteSpace(f.Message))
+        { 
+          <span title="@f.Message">msg</span>
+        }
+    </td>
+  </tr>
+}
+</tbody>
+</table>
