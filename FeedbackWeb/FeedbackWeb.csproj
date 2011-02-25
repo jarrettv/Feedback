@@ -13,7 +13,7 @@
     <RootNamespace>FeedbackWeb</RootNamespace>
     <AssemblyName>FeedbackWeb</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -171,11 +171,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <PropertyGroup>
-    <PostBuildEvent>
-if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
-copy "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\x86\*.dll" "$(TargetDir)x86"
-if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
-copy "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\amd64\*.dll" "$(TargetDir)amd64</PostBuildEvent>
-  </PropertyGroup>
 </Project>

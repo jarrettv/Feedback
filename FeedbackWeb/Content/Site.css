@@ -64,6 +64,12 @@ thead th, tfoot td {background:#E9E8E8 url(fade.png) repeat-x;font-weight:bold}
  em.expire {float:right; padding:0.5em; border-radius:3px; background:#fcfcfc; display:block; margin:-0.4em 1em 0 0.4em; width:14em; color:#999; font-weight:bold; clear:right}
 em.expire span {display:inline-block;vertical-align: middle; background: transparent url('ajax.gif') no-repeat scroll; width:18px; height:18px; margin:0 3px 0 0}
 
+#results .rating {text-align:center}
+#results td {max-width:8.8em}
+#results th.rating {max-width:3.5em}
+#results h3 {margin:0.8em 0 0 0}
+#results ol {margin-top:0.5em}
+
 .field-validation-error {color: #a90000;}
 .field-validation-valid {display: none;}
 .input-validation-error {border: 1px solid #a90000; background-color: #ffeeee !important}
