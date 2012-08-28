@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="page">    
+      <div id="hd">
+        <h1>Feedback</h1>
+        <ul id="menu">
+            <li>@Html.ActionLink("Presentations", "Index", "Home")</li>
+        </ul>
+      </div>
+      <div id="bd">
+          @RenderBody()
+      </div>
+      <div id="ft">
+        @Html.Action("FeedbackCount", "Home")
+        Copyright 2010 Jarrett Vance
+      </div>
+    </div>
+
+      <script src="~/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+      @RenderSection("tail", required: false)
+</body>
+</html>

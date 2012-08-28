@@ -1,0 +1,74 @@
+﻿@model FeedbackMvc4.Models.Feedback
+
+@{
+    ViewBag.Title = "Give Feedback";
+}
+<em>Hello</em>
+<h2>For @Model.Presentation.Presentor <small>Topic: @Model.Presentation.Title</small></h2>
+
+<p>Please indicate your impressions of this presentation on the scales below. Use the 'comments' area to provide clarification for the score you've assigned each item. <strong>Remember that feedback about what's good in a presentation is as important as feedback about problems.</strong></p>
+
+@Html.ValidationSummary()
+
+@using (var f = Html.BeginForm())
+{
+  @Html.HiddenFor(x => x.PresentationId)
+
+  <div class="yui3-g fields">
+  <div class="yui3-u-1-4">
+    @Html.LabelFor(x => x.Name)
+    @Html.EditorFor(x => x.Name)
+  </div>
+  
+  <div class="yui3-u-1-4">
+    @Html.LabelFor(x => x.Email)
+    @Html.EditorFor(x => x.Email)
+  </div>
+
+  </div>
+  <ol id="ratings">
+  @for (int i=0; i<Model.Presentation.Template.Ratings.Count; i++)
+  {
+    <li>
+    @Html.HiddenFor(x => x.Ratings[i].RatingDefinitionId)
+    <h3>@Model.Presentation.Template.Ratings[i].Name</h3>
+    <fieldset>
+    <div class="yui3-g">
+      <div class="yui3-u-1-6 notset">
+        <label>Not Set @Html.RadioButtonFor(x => x.Ratings[i].Value, "0")</label>
+      </div>
+      <div class="yui3-u-1-6 low">@Model.Presentation.Template.Ratings[i].LowName</div>
+      <div class="yui3-u-1-2 scale">
+      @for (int j=1; j<6; j++)
+      {
+        <label>@j.ToString()@Html.RadioButtonFor(x => x.Ratings[i].Value, j.ToString())</label>
+      }
+      </div>
+      <div class="yui3-u-1-6 high">@Model.Presentation.Template.Ratings[i].HighName</div>
+    </div>
+    </fieldset>
+    <div class="comments">
+    @Html.LabelFor(x => x.Ratings[i].Comment)
+    @Html.EditorFor(x => x.Ratings[i].Comment)</div>
+    </li>
+  }
+  </ol>
+
+<div class="yui3-g">
+  <div class="yui3-u-3-4 message">
+    @Html.LabelFor(x => x.Message)
+    @Html.TextAreaFor(x => x.Message)  
+  </div>
+  <div class="yui3-u-1-4 submit">  
+    <button type="submit"><span></span>Submit</button>
+  </div>
+</div>
+
+}
+
+
+@section tail
+{
+  <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}

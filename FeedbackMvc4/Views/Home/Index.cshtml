@@ -1,0 +1,23 @@
+﻿@using FeedbackMvc4.Models;
+@using System.Collections;
+
+@model IList<Presentation>
+
+@{
+    ViewBag.Title = "Presentation Feedbacks";
+}
+<p>Please choose a presentation below to submit feedback.</p>
+<ol id="presentations">
+  @foreach (Presentation p in Model)
+  {
+  <li>
+    <a href="@Url.Action("Feedback", new { id = @p.Id })">Give Feedback</a>
+    <h2>@p.Title <small>on @p.Date.ToString("yyyy-MM-dd h:mmtt").ToLower()</small></h2>
+    <address>by @p.Presentor</address>
+    <p>@p.Description</p>  
+  </li>
+  }
+</ol>
+
+<br /> <br />
+<small>Rendered @DateTime.Now.ToString()</small>

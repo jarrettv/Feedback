@@ -1,0 +1,93 @@
+﻿@using FeedbackMvc4.Models;
+@using System.Collections;
+@using System.Linq;
+
+@model Presentation
+
+@{
+  ViewBag.Title = @Model.Title;
+}
+<div id="results">
+<table>
+<thead><tr><th>Name</th><th>Email</th>
+@foreach (var r in Model.Template.Ratings)
+{
+  <th class="rating" title="@r.Name">@r.Name</th>
+}
+<th>Date</th>
+<th>Msg</th>
+</tr></thead>
+<tbody>
+@foreach (var f in Model.Feedbacks)
+{
+  <tr>
+    <td title="@f.Name">@f.Name</td>
+    <td><a href="mailto:@f.Email">@f.Email</a></td>
+    @foreach (var r in f.Ratings)
+    {
+    <td class="rating" title="@r.Comment">@(r.Value > 0 ? r.Value.ToString() : null)
+      @if(!string.IsNullOrWhiteSpace(r.Comment))
+      {
+      <span>*</span>
+      }
+    </td>
+    }
+    <td>@f.CreatedDate.ToString("M-d-yy h:mmt").ToLower()</td>
+    <td title="@f.Message">
+    @if (!string.IsNullOrWhiteSpace(f.Message))
+    { 
+      <span>*</span>
+    }
+    </td>
+  </tr>
+}
+</tbody>
+<tfoot>
+<tr>
+  <td colspan="2">@Model.Feedbacks.Count Feedbacks</td>
+  @foreach (var r in Model.Template.Ratings)
+  {
+  <td class="rating">@{
+    var ratings = Model.Feedbacks
+      .SelectMany(x => x.Ratings)
+      .Where(x => x.Definition.Id == r.Id && x.Value > 0);
+    if (ratings.Any())
+    {
+      @ratings.Average(x => x.Value).ToString("0.0")
+    }
+  }
+  </td>
+  }
+  <td colspan="2">@(
+    Model.Feedbacks
+      .SelectMany(x => x.Ratings)
+      .Where(x => x.Value > 0)
+      .Count() > 0 ?
+    Model.Feedbacks
+      .SelectMany(x => x.Ratings)
+      .Where(x => x.Value > 0)
+      .Average(x => x.Value).ToString("0.0#") : "(none)"
+    ) Average</td>
+</tr>
+</tfoot>
+</table>
+
+<h3>Comments</h3>
+<ol>
+@foreach (var r in Model.Feedbacks
+  .SelectMany(x => x.Ratings)
+  .OrderBy(x => x.RatingDefinitionId)
+  .Where(x => !string.IsNullOrWhiteSpace(x.Comment)))
+{
+  <li id="@r.FeedbackId:@r.RatingDefinitionId"><strong>@r.Definition.Name</strong>: @r.Comment</li>
+}
+</ol>
+<h3>Messages</h3>
+<ol>
+@foreach (var f in Model.Feedbacks
+  .Where(x => !string.IsNullOrWhiteSpace(x.Message)))
+{
+  <li id="@f.Id"><strong>@f.Name</strong>: @f.Message</li>
+}
+</ol>
+</div>
