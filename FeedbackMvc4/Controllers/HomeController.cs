@@ -19,6 +19,7 @@ namespace FeedbackMvc4.Controllers
         public ActionResult Index()
         {
             var model = this.db.Presentations
+                .AsNoTracking()
                 .OrderByDescending(x => x.Date)
                 .Take(10)
                 .ToArray(); // force execution

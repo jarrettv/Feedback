@@ -17,7 +17,9 @@ namespace FeedbackMvc4
             // many-to-many
             builder.Entity<Template>()
                 .HasMany(x => x.Ratings)
-                .WithMany();
+                .WithMany()
+                .Map(x => x.MapLeftKey("TemplateId")
+                    .MapRightKey("RatingDefId"));
 
             // composite key
             builder.Entity<Rating>()

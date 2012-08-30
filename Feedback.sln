@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedbackMvc4", "..\FeedbackMvc4\FeedbackMvc4.csproj", "{55C71712-B1FF-4749-A3FA-3CC82064D21D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedbackMvc4", "FeedbackMvc4\FeedbackMvc4.csproj", "{55C71712-B1FF-4749-A3FA-3CC82064D21D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E61B4C62-2DEA-4E99-BD4F-E64DBEB2B555}"
 EndProject
