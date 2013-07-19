@@ -1,0 +1,26 @@
+﻿@using Aaa.Common;
+@using JVance.Feedback.Web.Models;
+
+@{
+    ViewBag.Title = "Home Page";  
+}
+
+@model Presentation[]
+
+<h2>Presentations</h2>
+@for (int i = 0; i < this.Model.Length % 3; i++)
+{
+  <div class="row">
+   @foreach (var p in this.Model.Skip(3 * i).Take(3))
+   {
+     <div class="span4">
+       <div class="well">
+         <h4>@p.Title</h4>         
+         <address>@p.Presentor  <small>@p.Date.ToFormatString() @p.Date.ToShortTimeString()</small></address>       
+         <p>@p.Description</p>
+       </div>
+     </div>
+   }   
+  </div>
+}
+

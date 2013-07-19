@@ -1,0 +1,306 @@
+﻿@using System.Xml.Linq;
+@{
+  ViewBag.Title = "Class Document";
+}
+
+@section head {
+  <style>
+    section { padding-top: 100px; }
+  </style>
+}
+
+<div class="row">
+  <div class="span3">
+    <div id="toc">
+      <ul class="nav nav-list affix" style="width:170px;">
+
+        <li class="nav-header">Day 5</li>
+        <li class="active"><a href="#ctrllr">Controller</a></li>
+        <li><a href="#viewdata">ViewData</a></li>
+        <li><a href="#route">Routing</a></li>
+          
+        <li class="nav-header">Day 6</li>
+        <li><a href="#filter">Filters</a></li>
+        <li><a href="#binding">Model Binding</a></li>
+
+        <li class="nav-header">Day 7</li>
+        <li><a href="#css">CSS</a></li>
+        <li><a href="#bootstrap">Bootstrap</a></li>
+        <li><a href="#js">JavaScript</a></li>
+        <li><a href="#plugins">Plugins</a></li>
+        
+        <li class="nav-header">Day 8</li>
+        <li><a href="#bundle">Bundling</a></li>
+        <li><a href="#tasks">Tasks</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="span9">
+    
+    <h1>MVC Foundation <small>by Jarrett Vance</small></h1>
+      
+    <section id="ctrllr">
+      <div class="row-fluid">
+        <div class="span2">
+          <svg width="120" height="120">
+            <g>
+              <circle r="48" cy="60" cx="60" fill="#006da2"/>
+              <text text-anchor="middle" font-family="Segoe UI Semibold" font-size="68" y="84" x="58" fill="#ffffff">C</text>
+            </g>
+          </svg>
+        </div>
+        <div class="span10">
+          <h2>Controller</h2>
+          <ul>
+            <li>Handles user input and performs an action on the model usually resulting in a view</li>
+            <li>MVC framework uses routing and model binding to invoke a controller action</li>
+            <li>Contains authorization, database, and calls into business layer</li>
+          </ul>
+        </div>
+      </div>
+      <div class="alert alert-info">
+        <strong>Business in controller?</strong> Only infrastructure code belongs in the controller. However, the controller can call into the model to accomplish the business.
+      </div>
+
+      <div class="pull-right well well-small">
+        <ul>
+          <li>ViewResult</li>
+          <li>PartialViewResult</li>
+          <li>EmptyResult</li>
+          <li>JsonResult</li>
+          <li>RedirectResult</li>
+          <li>ContentResult</li>
+          <li>FileResult</li>
+          <li class="muted">and more</li>
+        </ul>
+      </div>
+      <h4>Action &amp; ActionResults</h4>
+      <ul>
+        <li>Actions are methods in a controller</li>
+        <li>Take user input as parameters</li>
+        <li>Return action results</li>
+        <li>Typically ViewResult or PartialViewResult</li>
+        <li>Built in methods in base controller</li>
+      </ul>
+    </section>
+
+    <section id="viewdata">
+      <h2>ViewData <small>strategy for passing data to the view</small></h2>
+      <ul>
+        <li>Business Entities are passed to a View as the 'Model'. Therefore the View has detailed knowledge of part of the business layer.
+          <span class="label label-important" title="Unlikely to suit real MVC applications, as usually extra data is needed">con</span>
+          <span class="label label-important" title="Not flexible – it is more likely to lead to additional code churn after go-live">con</span>
+          <span class="label label-important" title="Tempting to add view specific fields that can compromise business layer">con</span>
+          <span class="label label-success" title="MVC can take advantage of the same validation mark-up attributes">pro</span>
+        </li>
+        <li>Business Entities are never passed to a View – instead the relevant data is extracted and placed in a new entity reserved purely for use by the UI layer... or a <strong>View Model</strong>
+      
+          <span class="label label-success" title="Data not contained in our business entities can easily be passed across">pro</span>
+          <span class="label label-success" title="Change is easy when it consists of data that should be added, removed (or not displayed), or even altered / mapped">pro</span>
+          <span class="label label-success" title="Ok to add view specific data to the view model">pro</span>
+          <span class="label label-success" title="The UI's needs are kept separate from the business">pro</span></li>
+          <span class="label label-important" title="MVC cannot take advantage of the same validation mark-up attributes">con</span></li>
+  @*      http://blogs.msdn.com/b/simonince/archive/2010/01/26/view-models-in-asp-net-mvc.aspx *@
+      </ul>
+        
+      <h4>Different styles of model</h4>
+      <ul>
+        <li>Entity <span class="label label-success">Easiest</span></li>
+        <li>DTO <span class="label">Projection</span></li>
+        <li>ViewModel <span class="label">Projection</span></li>
+      </ul>
+
+      <h4>Projection</h4>
+      <ul>
+        <li>Only the data needed</li>
+        <li>Avoids N+1</li>
+      </ul>
+
+      <h4>ViewBag</h4>
+      <ul>
+        <li>Main data should use strongly typed models</li>
+        <li>Dynamic access to <code>ViewData</code></li>
+        <li>Useful for edit views</li>
+        <li>Dropdown values</li>
+        <li>Careful what you expose in <code>ViewBag</code></li>
+        @*Scenarios when you don’t need strongly typed model*@
+      </ul>
+    </section>
+
+    <section id="route">
+      <h2>Routing</h2>
+      <ul>
+        <li>App_Start/RegisterRoutes.cs</li>
+        <li>Default route</li>
+        <li>Uses <strong>{param}</strong> syntax in URL</li
+        <li>Anon object with controller, actions, other parameters</li>
+        <li>Any unnamed parameter in route becomes a querystring value</li>
+        <li>Uses “<strong>*</strong>” at end of route is a catch all</li>
+        <li>Regex contraint and custom constraint</li>
+        <li>Named routes</li>
+      </ul>
+
+      <div class="alert alert-info">
+        <strong>Order matters?</strong> Since routes are matched top-down, you should put the most specific routes at the top and least specific routes at the bottom.  
+      </div>
+    </section>
+
+    <section id="filter">
+      <h2>Filters</h2>
+      <ul>
+        <li><code>Authorize</code></li>
+        <li>Http method such as <code>HttpPost</code> and <code>HttpGet</code></li>
+        <li><code>OutputCache(Duration=0)</code> needed for AJAX methods with IE</li>
+        <li><code>HandleError</code> for exceptions</li>
+        <li>Global filters <span class="muted">new in 3.0</span></li>
+      </ul>
+    </section>
+
+    <section id="binding">
+      <h2>Model Binding</h2>
+      <ul>
+        <li>Data needed to take action</li>
+        <li><code>DefaultModelBinder</code> looks in following providers by name <span class="label label-info">Case-insensitive</span>
+          <ul>
+            <li>Form values</li>
+            <li>Route data</li>
+            <li>Querystring</li>
+            <li>Http file collection</li>
+          </ul>
+        </li>
+        <li>Removes lots of plumbing code</li>
+        <li>Custom model binders <span class="label label-important">Avoid</span></li>
+        <li>Complex graphs such as <a href="http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx">model binding a list</a>, utilize an index <span class="label label-success">Preferred</span></li>
+        <li>Remember non-nullable types are required</li>
+        <li>Problems captured in <code>ModelState</code></li>
+      </ul>
+
+      <div class="alert alert-info">
+        <strong>Why DTO?</strong> So we don't have to whitelist or blacklist properties that can be binded on our model. Being explicit is good design of our business model.
+      </div>
+      
+      <h4>Model State</h4>
+      <ul>
+        <li>Validation state of model</li>
+        <li>Check <code>ModelState.IsValid</code></li>
+        <li>Errors are associated with property on model</li>
+        <li>View helpers use <code>ModelState</code> to display errors or alter style</li>
+        <li><code>Html.ValidationSummary</code> or <code>Html.ValidationMessage</code></li>
+      </ul>
+    </section>
+
+    <section id="css">
+      <h2>CSS</h2>
+      <ul>
+        <li>Cascading style sheets</li>
+        <li>Build rules around color, fonts, and layout</li>
+        <li>Must know selectors
+          <ul>
+            <li><code>element</code></li>
+            <li><code>#id</code></li>
+            <li><code>.class</code></li>
+            <li>Use combinations like <code>element.class</code></li>
+            <li>Specify hierarchy like <code>parent>child</code> or <code>parent decendent</code></li>
+          </ul>
+        </li>
+        <li>IE7 and IE8 are annoying</li>
+      </ul>
+    </section>
+    
+    <section id="bootstrap">
+      <h2>Bootstrap <small>to the rescue</small></h2>
+      <ul>
+        <li>Powerful front-end framework by twitter</li>
+        <li>CSS frameworks "reset" style so it matches across browsers</li>        
+        <li>Provide example html with nices style</li>
+        <li>Provide layout grid system</li>
+        <li>Provide common patterns</li>        
+      </ul>
+
+      <div class="alert alert-info">
+        <strong>CSS or LESS?</strong> CSS is quick and easy but LESS is much more powerful. You can tweak the variables.less file to make global theme updates.
+      </div>
+
+      <h4>LESS <small>extends CSS</small></h4>
+      <ul>
+        <li>Variables</li>
+        <li>Mix-ins</li>
+        <li>Operations</li>
+        <li>Functions</li>
+      </ul>
+      
+    </section>
+
+    <section id="js">
+      <h2>JavaScript</h2>
+      <ul>
+        <li>Horrible language</li>
+        <li>Not strongly typed or compiled</li>
+        <li>No classes or library/reference system</li>
+        <li>But, it is scripting language of the web</li>
+        <li>All modern web applications are interactive</li>
+        <li>Need it for AJAX</li>
+      </ul>
+      <h4>jQuery <small>makes javascript suck less</small></h4>
+      <ul>
+        <li>Fast, lightweight, feature-rich javascript library</li>
+        <li>Hides browser inconsistencies <small>like crappy IE7 and IE8</small></li>
+        <li>Embraced by everyone, even Microsoft</li>
+        <li>Can utilize selectors to get <abbr title="Document Object Model">DOM</abbr> elements</li>
+        <li>Easy to find help online</li>
+      </ul>
+    </section>
+
+    <section id="plugins">
+      <h2>Plugins <small>and components</small></h2>
+      <ul>
+        <li>Massive amount of plugins</li>
+        <li>Goal is to be unobtrusive</li>
+        <li>Utilize <code>data-attributes</code> to trigger components</li>
+        <li>Code-reuse</li>
+        <li>Bootstrap components</li>
+      </ul>
+    </section>
+
+    <section id="bundle">
+      <h2>Bundling <small>optimization</small></h2>
+      <ul>
+        <li>Combine and minify</li>
+        <li>Fewer requests = faster performance</li>
+        <li>Enabled in release mode</li>
+        <li>LESS transform</li>
+      </ul>
+    </section>
+    
+    <section id="tasks">
+      <h2>Tasks</h2>
+      <ul>
+        <li>Get real experience</li>
+        <li>Lots of remaining tasks</li>
+        <li>Required to get credit for class</li>
+        <li><strong>Due May 7<sup>th</sup></strong> <span class="label label-important">2 weeks</span> and <span class="label label-success">2 weekends</span></li>
+        <li>I'm available for help and pair programming</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Appendix <small>Pipeline</small></h2>
+      <img src="~/Content/pipeline.png" alt="pipeline" />
+    </section>
+  </div>
+</div>
+
+@helper Folder(XElement folder)
+{
+    <i class="icon-folder-open"></i> <strong>@folder.Attribute("name").Value</strong>
+    <ol class="unstyled" style="margin-left:10px">      
+      @foreach (var subfolder in folder.Elements("folder"))
+      {
+        @Folder(subfolder)
+      }
+      @foreach (var file in folder.Elements("file"))
+      {
+        <li><i class="icon-file"></i> <strong>@file.Attribute("name").Value</strong> <span class="muted">@Html.Raw(file.Value)</span></li>
+      }
+    </ol>
+}

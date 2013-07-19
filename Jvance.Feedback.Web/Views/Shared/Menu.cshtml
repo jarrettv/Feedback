@@ -1,0 +1,35 @@
+﻿@using Aaa.Common;
+
+@model Menu
+
+<ul class="nav">
+  @foreach (var item in this.Model.Items.Where(x => x.IsVisible(this.ViewContext)))
+  {
+    if (item.HasChildren())
+    {
+      <li class="dropdown @(item.IsSelected(this.ViewContext) ? "active" : null)">
+        <a href="@item.GetHref(this.Url)" title="@item.Title" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
+          @item.Text <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          @foreach (var subItem in item.Children.Where(x => x.IsVisible(ViewContext)))
+          {
+            @ListItem(subItem)
+          }
+        </ul>
+      </li>
+    }
+    else
+    {
+      @ListItem(item)
+    }
+  }
+</ul>
+
+@helper ListItem(MenuItem item) {
+  <li class="@(item.IsSelected(this.ViewContext) ? "active" : null)">
+    <a href="@item.GetHref(this.Url)" title="@item.Title" tabindex="-1">
+      @item.Text
+    </a>
+  </li>
+}

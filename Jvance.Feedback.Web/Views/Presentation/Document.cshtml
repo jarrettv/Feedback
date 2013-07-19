@@ -1,0 +1,574 @@
+﻿@using System.Xml.Linq;
+@{
+    ViewBag.Title = "Class Document";
+}
+@section head {
+  <style>
+    section { padding-top: 100px; }
+  </style>
+}
+
+<div class="row">
+  <div class="span3">
+    <div id="toc">
+      <ul class="nav nav-list affix" style="width:170px;">
+
+        <li class="nav-header">Day 1</li>
+        <li class="active"><a href="#setup">Setup</a></li>
+        <li><a href="#history">History</a></li>
+        <li><a href="#mustknow">C# must know</a></li>
+        <li><a href="#vstips">Visual Studio tips</a></li>
+        <li><a href="#advice">Advice</a></li>
+        <li><a href="#web">Web logistics</a></li>
+
+        <li class="nav-header">Day 2</li>
+        <li><a href="#soc">Separation of concerns</a></li>
+        <li><a href="#model">Model</a></li>
+        <li><a title="Object Relational Mapper" href="#orm">ORM</a></li>
+        <li><a href="#ef">EF code-first</a></li>
+
+        <li class="nav-header">Day 3</li>
+        <li><a href="#dbcfg">Database configuration</a></li>
+        <li><a href="#mig">Migrations</a></li>
+        <li><a href="#linq">Linq</a></li>
+        <li><a href="#query">Query</a></li>
+        
+        <li class="nav-header">Day 4</li>
+        <li><a href="#cud">Create, update, &amp; delete</a></li>
+        <li><a href="#proj">Project layout</a></li>
+        <li><a href="#view">View</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="span9">
+    <h1>MVC Foundation <small>by Jarrett Vance</small></h1>
+    
+    <section id="setup">
+      <h2>Setup</h2>
+      <ul>
+        <li>Visual Studio 2012 Update 1</li>
+        <li>Connect to <abbr title="Team Foundation Server">TFS</abbr> <span class="label label-info">tfs.askcts.com:80/</span></li>
+        <li>Team project under <abbr title="Computer Technology Solutions">CTS</abbr> <span class="label label-info">Chronos</span></li>
+        <li>Load source locally</li>
+        <li>Check-in attendence file</li>
+      </ul>
+    </section>
+
+    <section id="history">
+      <h2>History <small>of MVC and EF</small></h2>
+      <timeline style="display:none">
+        <line name="ASP.NET MVC">
+          <time date="2007-12-10"><abbr title="Community Technical Preview">CTP</abbr></time>
+          <time date="2009-03-13">v1.0</time>
+          <time date="2009-04-02"><span class="label label-success">open source</span></time>
+          <time date="2010-03-10">v2.0</time>
+          <time date="2011-01-13">v3.0</time>
+          <time date="2012-08-15">v4.0</time>
+        </line>
+        <line name="EF">
+          <time date="2008-08-11">v1.0 <span class="label label-warning">no confidence</span></time>
+          <time date="2007-12-10">v4.0</time>
+          <time date="2011-04-12">v4.1</time>
+          <time date="2011-11-01">v4.2</time>
+          <time date="2012-02-29">v4.3</time>
+          <time date="2012-04-02"><span class="label label-success">open source</span></time>
+          <time date="2012-08-15">v5.0</time>
+        </line>
+      </timeline>
+      <ul>
+        <li>10 Dec 2007	ASP.NET MVC <abbr title="Community Technical Preview">CTP</abbr></li>
+        <li>11 Aug 2008 EFv1 <span class="label label-warning">no confidence</span></li>
+        <li>13 March 2009	ASP.NET MVC 1</li>
+        <li>2 April 2009 MVC <span class="label label-success">open source</span></li>
+        <li>10 March 2010	ASP.NET MVC 2</li>
+        <li>12 April 2010 EFv4</li>
+        <li>13 Jan 2011	ASP.NET MVC 3</li>
+        <li>12 April 2011 EFv4.1</li>
+        <li>29 Feb 2012 EFv4.3.1</li>
+        <li>19 July 2012 EF <span class="label label-success">open source</span></li>
+        <li>15 Aug 2012	ASP.NET MVC 4</li>
+        <li>15 Aug 2012 EF5</li>
+      </ul>
+    </section>
+
+    <section id="mustknow">
+      <h2>C# <small>must know</small></h2>
+      <ul>
+        <li>Reference vs. value types</li>
+        <li>2.0 generics, performance <small>(differs from java)</small></li>
+        <li>2.0 nullable types <code>HasValue</code></li>
+        <li>3.0 var</li>
+        <li>3.0 enumerable</li>
+        <li>Extension methods</li>
+        <li>Coalesce nulls <code>??</code></li>
+        <li>Static readonly vs. constant</li>
+        <li>Casting <code>as</code> &amp; <code>is</code></li>
+        <li>Partial classes</li>
+        <li><code>string.IsNullOrEmpty()</code></li>
+        <!-- 
+  MVC heavily uses available language features in C#
+  You must know difference between reference & value types 
+  for example: data annotations and binding
+  When should you use Nullable
+  Typically will pass generic list of data around
+  Anonymous types, will talk about projecting data when talk about EF
+  Enumerable, delayed execution
+  Extension methods, all of LINQ is built using extension methods
+  For example: HtmlHelpers
+  Coalesce nulls useful in everyday programming
+  -->
+      </ul>
+      <div class="well">
+        <strong>DateTime vs. DateTimeOffset</strong> Storing dates is complicated due to time zones, <abbr title="Daylight Savings Time">DST</abbr>, and cultural differences. We can reduce complexity by following a few simple rules.
+        <ul>
+          <li><code>DateTime</code> <i class="icon-arrow-right"></i> Use when time is not important. Time should always be 12:00am.</li>
+          <li><code>DateTimeOffest</code> <i class="icon-arrow-right"></i> Use anytime both date and time is important. This type can be used as a timestamp since it captures offset from <abbr title="Coordinated Universal Time">UTC<//abbr>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="vstips">
+      <h2>Visual Studio Tips</h2>
+      <img style="float: right; width: 390px" src="~/content/keyboard.jpg" alt="Keyboard" />
+      <ul>
+        <li><span class="label label-info">Ctrl</span><span class="text-info">-</span><span class="label label-info">-</span> &amp; <span class="label label-info">Ctrl</span><span class="text-info">-</span><span class="label label-info">Shift</span><span class="text-info">-</span><span class="label label-info">-</span> code navigation</li>
+        <li><span class="label label-info">Ctrl</span><span class="text-info">-</span><span class="label label-info">.</span> auto complete, auto refactor</li>
+        <li><span class="label label-info">F12</span> go to definition</li>
+        <li><span class="label label-info">Ctrl</span><span class="text-info">-</span><span class="label label-info">arrows</span> word jump</li>
+        <li><span class="label label-info">Ctrl</span><span class="text-info">-</span><span class="label label-info">shift</span><span class="text-info">-</span><span class="label label-info">v</span> clipboard history</li>
+        <li>Toolbox <small class="muted">(snippets)</small> drag code</li>
+        <li><span class="label label-info">Alt</span> vertical selection, multi-line edit</li>
+        <li><span class="label label-info">Ctrl</span><span class="text-info">-</span><span class="label label-info">i</span> incremental search</li>
+        <li>Split windows</li>
+        <li><span class="label label-info">Ctrl</span><span class="text-info">-</span><span class="label label-info">,</span> navigate</li>
+        <li>Breakpoints, immediate window debugging</li>
+      </ul>
+
+      <h4 title="New package manager system">Nuget</h4>
+      <ul>
+        <li><span class="text-warning">So you don't reinvent the wheel</span></li>
+        <li>View -> Other Windows</li>
+        <li>Pull in libraries quickly</li>
+        <li>Uses PowerShell</li>
+        <li>Choose your project wisely</li>
+
+        <!--
+  Show how to bring up console, add package using “install-package”
+  Show how to add package using GUI
+  Show where package dlls are stored on the file system
+  Explain the target project
+  Explain WebActivator
+            -->
+      </ul>
+    </section>
+
+    <section id="advice">
+      <h2>Advice <small>for clean code</small></h2>
+      <ul>
+        <li>Unit testing, build/compile often</li>
+        <li>Check-in often</li>
+        <li>Code should be clean</li>
+        <li>No more than 30 lines per method</li>
+        <li>Regions are <strong class="text-error">bad!</strong></li>
+        <li><a title="Single responsibility, Open-closed, Liskov substitution, Interface segregation and Dependency inversion" href="http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID</a> principles</li>
+        <li><a title="Domain Driven Design" href="http://en.wikipedia.org/wiki/Domain-driven_design">DDD</a> - domain driven design</li>
+      </ul>
+    
+      <img style="width: 280px; float: right; margin: -100px 0 10px 0" src="~/content/bleeding.jpg" alt="blood" />
+      <h4>Advice <small>for success</small></h4>
+      <ul>
+        <li>Stack-overflow or Google</li>
+        <li>Stay informed about the bleeding edge <i class="icon-tint" style="color:#a90000;font-size:28px; margin-top:-14px"></i></li>
+        <li>Always have a pet project</li>
+        <li>Expand your horizon</li>
+        <li><a title="Keep It Simple Stupid!" href="http://en.wikipedia.org/wiki/KISS_principle">KISS</a></li>
+        <li><strong class="text-warning">Know when to say NO!</strong></li>
+      </ul>
+    </section>
+
+    <section id="web">
+      <div class="row-fluid">
+        <div class="span4">
+          <img style="width: 100%; float: right; margin: 10px 0" src="~/content/web.jpg" alt="hyperlink" />
+        </div>
+        <div class="span8">
+          <h2>Web Logistics</h2>
+          <ul>
+            <li>The web is built on <abbr title="Hypertext Transfer Protocol">HTTP</abbr> <span class="label label-success">200</span> <span class="label label-important">500</span></li>
+            <li>Common resources are <abbr title="Hypertext Markup Language">HTML</abbr>, <abbr title="Cascading Style Sheets">CSS</abbr>, <abbr title="JavaScript">JS</abbr>, <abbr title="Portable Network Graphics">PNG</abbr>, <abbr title="Joint Photographic Experts Group">JPG</abbr> <span class="label label-warning">screenshot?</span></li>
+            <li>Browsers GET and POST <span class="label label-info">uri</span></li>
+            <li>Fewer requests are better <span class="label label-info">bundling</span> <span class="label label-info">caching</span></li>
+            <li>Smaller responses are better <span class="label label-info">gzip</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="soc">
+      <!--<img style="width: 240px; height:240px; float: right; margin-bottom: 10px" src="content/mvc.svg" alt="mvc" />-->
+      <object style="float: right; margin-bottom: 10px" data="~/content/mvc2.svg" type="image/svg+xml"></object>
+
+      <h2>Separation of Concerns</h2>
+      <ul>
+        @*<li>WebForms introduced code behind to separate concerns but was based on desktop event driven programming model</li>
+        <li>MVC embraces how the web works, uses different method to separate the concerns</li>*@
+        <li>Model is the application object <span class="label label-info">entity</span>, the view is its screen presentation <span class="label label-info">razor</span>, and the controller defines the way the user interface reacts to user input <span title="Data Transfer Object" class="label label-info">DTO</span>. Before <abbr title="Model View Controller">MVC</abbr>, user interface designs tended to lump these objects together. <abbr title="Model View Controller">MVC</abbr> decouples them to increase flexibility and reuse. <a href="http://blog.iandavis.com/2008/12/09/what-are-the-benefits-of-mvc/"><i class="icon-link"></i></a></li>      
+        @*<li>Sometimes the model doesn’t provide exactly what is needed for the view</li>
+        <li>Where does the logic live?  What about scripting? (validation)</li>*@
+        <li>Model has no dependencies</li>
+        <li>View doesn't depend on the controller</li>
+        <li>Controller depends on both the model and view</li>
+      </ul>
+    </section>
+
+    <section id="model">
+      <div class="row-fluid">
+        <div class="span2">
+          <svg width="120" height="120">
+            <g>
+              <circle r="48" cy="60" cx="60" fill="#006da2"/>
+              <text text-anchor="middle" font-family="Segoe UI Semibold" font-size="68" y="84" x="60" fill="#ffffff">M</text>
+            </g>
+          </svg>
+        </div>
+        <div class="span10">
+        <h2>Model</h2>
+        <ul>
+          <li>We must create a model of the business domain</li>
+          <li><abbr title="Plain Old CLR Object">POCO</abbr></li>
+          <li>Construction <span class="label">parameterless</span></li>
+          <li>Properties <span class="label">public get/set</span></li>
+          <li>Methods</li>
+          <li>Ownership</li>
+        </ul></div>
+      </div>
+      <div class="alert alert-info"><strong>Evolve</strong> the model as you talk to business owners. The developers should agree with the business owners to use the same terminology for the domain model. This is the <strong><a href="http://martinfowler.com/bliki/UbiquitousLanguage.html">ubiquitous language</a></strong>.</div>
+    </section>
+
+    <section id="orm">
+      <object style="float: right; margin-bottom: 10px" data="~/content/square peg round hole.svg" type="image/svg+xml"></object>
+      <h2 id="orm">ORM <small>storing the models</small></h2>
+      <ul>
+        <li>Object-relational mappers</li>
+        <li>Object-relational impedance mismatch</li>
+        <li>Data type differences</li>
+        <li>Inheritance, polymorphism</li>
+        <li>Structural, manipulative, transactional differences</li>
+        <li>Popular ORMs</li>
+      </ul>
+      <!--
+      Object-relational mapping' (ORM, O/RM, and O/R mapping) in computer software is a programming technique for converting data between incompatible type systems in object-oriented programming languages. This creates, in effect, a 'virtual object database' that can be used from within the programming language.
+      The object-relational impedance mismatch is a set of conceptual and technical difficulties that are often encountered when a relational database management system (RDBMS) is being used by a program written in an object-oriented programming language or style; particularly when objects or class definitions are mapped in a straightforward way to database tables or relational schemata
+      How .NET types map to SQL data types
+      Value types vs. reference types
+      Strings with trailing spaces
+      How do you map inherited classes to tables, etc?
+      Constraints in OO vs in database
+      Set based operations in database vs set based operations in OO
+      Transaction support, must be done at a higher level
+      Popular
+      LINQ to SQL
+      Nhibernate
+      Castle ActiveRecord
+      LLBLGen
+          -->
+    </section>
+
+    <section id="ef">
+      <!-- TODO: simplify this section -->
+      <h2>EF Code First</h2>
+      <ul>
+        <li>Embraces <abbr title="Object Oriented Programming">OOP</abbr> <span title="Plain Old CLR Object" class="label">POCO</span></li>
+        <li>Still requires knowledge of <abbr title="Structured Query Language">SQL</abbr> and database design</li>
+        <li>Simplified DbContext</li>
+        <li>Database is automatically created for you based on your <abbr title="Plain Old CLR Object">POCO</abbr> model</li>
+        <li>Does support existing databases but not primary use case</li>
+        <li>Requires few concessions with model design</li>
+      </ul>
+      <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#dbctx">More info</button>
+      <div id="dbctx" class="collapse">
+        <p>The <strong>DbContext</strong> API is a simplified abstraction over ObjectContext and a number of other types that were included in previous releases of the ADO.NET Entity Framework. The DbContext API surface is optimized for common tasks and coding patterns. DbContext can be used with Database First, Model First and Code First development.</p>
+        <p><strong>Code First</strong> is a new development pattern for the ADO.NET Entity Framework and provides an alternative to the existing Database First and Model First patterns. Code First is focused around defining your model using C#/VB.NET classes, these classes can then be mapped to an existing database or be used to generate a database schema. Additional configuration can be supplied using Data Annotations or via a fluent API.</p>
+      </div>
+
+      <h4>EF Database First</h4>
+      <ul>
+        <li>Classic build your database first in the <abbr title="SQL Server Management Studio">SSMS</abbr> designer</li>
+        <li>Generate the model from the database</li>
+        <li>Classes are not <abbr title="Plain Old CLR Object">POCO</abbr></li>
+        <li>Supports <abbr title="Stored Procedures">SPROCS</abbr></li>
+      </ul>
+      <h4>EF Model First</h4>
+      <ul>
+        <li>Same as Database First but use entity designer in <abbr title="Visual Studio">VS</abbr></li>
+        <li>Automatically generate database</li>
+      </ul>
+
+    </section>
+
+    <section id="dbcfg">
+      <h2>Database Configuration</h2>
+
+      <h4>Setup</h4>
+      <ul>
+        <li>Create a class that derives from <code>DbContext</code></li>
+        <li>Create <code>DbSet</code> properties for each entity</li>
+      </ul>
+
+      <div class="well pull-right">
+        <strong>DbSet vs Child Collection</strong> 
+        You are not required to create a DbSet for every entity as <abbr title="Entity Framework">EF</abbr> can automatically 
+        infer a table for storing child collections.
+      </div>
+
+      <h4>Annotations</h4>
+      <ul>
+        <li><code>[Required]</code> attribute</li>
+        <li><code>[StringLength]</code> attribute</li>
+        <li><code>[RegEx]</code> attribute</li>
+      </ul>
+
+      <h4>Validation</h4>
+      <ul>
+        <li>Occurs during <code>db.SaveChanges()</code></li>
+        <li>Custom validation <style class="label label-important">Avoid</style></li>
+      </ul>
+
+      <h4>Navigation Properties</h4>
+      <ul>
+        <li>Independent associations <span class="label label-important">Avoid</span></li>
+        <li>Foreign key associations <span class="label label-success">Recommended</span> <a href="http://www.ladislavmrnka.com/2011/05/foreign-key-vs-independent-associations-in-ef-4/"><i class="icon-link"></i></a></li>
+        <!-- This is the concession mentioned before (unwanted foreign keys in our pure model)
+  http://www.ladislavmrnka.com/2011/05/foreign-key-vs-independent-associations-in-ef-4/
+  -->
+        <li>One to many</li>
+        <li>Many to many</li>
+      </ul>
+
+      <ul>
+        <li>Beware of large child collections</li>
+        <li>Lazy loading triggered upon add</li>
+        <li>Aggregate root <i class="icon-arrow-right"></i> then composite key recommended</li>
+      </ul>
+
+      <h4>Configuration</h4>
+      <ul>
+        <li>Attributes <span class="label label-important">Avoid</span></li>
+        <li>Fluent <span class="label label-success">Prefer</span></li>
+        <li><code>HasKey()</code> for composite keys</li>
+        <li><code>WithMany()</code> for x-to-many relationships</li>
+        <li><code>HasForeignKey()</code></li>
+        <li>Indexes? <span class="label label-important">No config yet</span></li>
+      </ul>
+
+      <div class="alert alert-warning">Lets configure the model for Chronos and generate the database.</div>
+    </section>
+
+    <section id="mig">
+      <h2>Migrations</h2>
+      <!-- TODO: explain seeding? indexes? -->
+      <object style="float: right; margin: -10px 0 10px 5px; width:300px" data="http://openclipart.org/people/Anonymous/stormo_di_uccelli_archit_01.svg" type="image/svg+xml"></object>
+      <ul>
+        <li>Code changes result in database changes</li>
+        <li>How do you update database?
+          <ul>
+            <li>Automatically detect changes</li>
+            <li>Automatically migrate</li>
+            <li>Loss of data (-force)</li>
+            <li>PowerShell commands <code>Enable-Migrations</code>, <code>Add-Migration</code> and <code>Update-Database</code></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="linq">
+      <h2>LINQ</h2>
+      <ul>
+        <li>Language integrated query</li>
+        <li><a href="http://stackoverflow.com/questions/214500/which-linq-syntax-do-you-prefer-fluent-or-query-expression">Which syntax?</a> <span class="label label-success">Fluent</span> <span class="label label-important">Query expression</span></li>
+        <li><a href="http://www.linqpad.net/">LINQPad</a> great tool, ask for license key</li>
+        <li>Linq to Objects in memory</li>
+        <li>Linq to <abbr title="Extensible Markup Language">Xml</abbr></li>
+        <li>Linq to Entities <style class="label">Translated to SQL</style></li>
+      </ul>
+    </section>
+
+    <section id="query">
+      <h2>Query <small>selects / find / projection</small></h2>
+      <ul>
+        <li>Start with a collection (from)</li>
+        <li>Build where queries similar to <abbr title="Structured Query Language">SQL</abbr></li>
+        <li>Can have multiple clauses <span class="label label-info">Deferred execution</span></li>
+        <li><code>OrderBy</code> <i class="icon-arrow-right"></i> <code>ThenBy</code></li>
+        <li><code>DbContext.Find</code> is used to grab from context or from database using key</li>
+        <li>Lazy loading</li>
+        <li>Projection involves using anon object or <abbr title="Data Transfer Object">DTO</abbr></li>
+        <li><code>AsNoTracking</code> for better read performance</li>
+        <li>TODO: oneMonthAgo variable, orderbydesc and count() in GetRecentActivities</li>
+      </ul>
+      <div class="alert alert-info"><strong>Joins?</strong> They aren't needed as they are automatic through navigation properties.</div>
+      <div class="alert alert-info"><strong>Need Select?</strong> Only needed if you are projecting into a different type. If you are selecting many child entities, you can use <code>SelectMany</code>.</div>
+      <div class="alert alert-info"><strong>How to trigger call to Db?</strong> Deferred execution requires you to ask for or access the data using methods such as <code>ToArray</code>, <code>ToList</code>, <code>Single</code>, and <code>First</code>.</div>
+    </section>
+
+    <section id="cud">
+      <h2>Create, Update, &amp; Delete</h2>
+      <h4>Create</h4>
+      <ul>
+        <li>Create a new object</code></li>
+        <li>Add it to the collection <code>DbSet.Add</code></li>
+        <li>Proxy objects can be created <code>DbSet.Create</code></li>
+        <li>You can add multiple objects</li>
+        <li><code>SaveChanges</code></li>
+      </ul>
+      <h4>Delete</h4>
+      <ul>
+        <li><code>DbSet.Remove</code></li>
+        <li>Or… remove from child collection <span class="label label-important">Object and reference is separate</span></li>
+        <li>Can remove multiple in context</li>
+        <li>EF doesn’t do batching</li>
+        <li><code>SaveChanges</code></li>
+      </ul>
+      <h4>Updates</h4>
+      <ul>
+        <li>Get from context</li>
+        <li>Modify <span class="label label-success">Change tracking</span></li>
+        <li><code>SaveChanges</code></li>
+      </ul>
+    </section>
+
+    <section id="proj">
+      <h2>Project layout</h2>
+      @{
+      var project = XElement.Parse(@"<folder name='Web'>
+        <folder name='App_Data'>
+          <file name='Db.mdf'>LocalDb database file</file>
+        </folder>
+        <folder name='App_Start'>
+          <file name='BundleConfig.cs'>Bundling of assets</file>
+          <file name='FilterConfig.cs'>Global action filters</file>
+          <file name='RouteConfig.cs'>Custom URL routes</file>
+        </folder>
+        <folder name='Content'>
+          <file name='photograph.jpg'>JPEG photographs</file>
+          <file name='graphic.png'>PNG images</file>
+        </folder>
+        <folder name='Controllers'>
+          <file name='(Name)Controller.cs'>Controller classes</file>
+        </folder>
+        <folder name='Infrastructure'>
+          <file name='(Name)Extensions.cs'>Extension method static classes</file>
+          <file name='(Name)Helpers.cs'>Helper method static classes</file>
+          <file name='Db.cs'>DbContext and database configuration</file>
+          <file name='(Other).cs'>Various util code</file>
+        </folder>
+        <folder name='Migrations'>
+          <file name='Configuration.cs'>Seed data</file>
+          <file name='(Timestamp)(Migration).cs'>Db version migration</file>
+        </folder>
+        <folder name='Models'>
+          <file name='(Domain).cs'>Domain model classes</file>
+          <file name='(Domain)Dto.cs'>Domain data transfer classes</file>
+          <file name='(Domain)Events.cs'>Domain model event classes</file>
+        </folder>
+        <folder name='Scripts'>
+          <file name='bootstrap-(component).cs'>Bootstrap javascript components</file>
+          <file name='jquery-(plugin).cs'>jQuery plugins</file>
+        </folder>
+        <folder name='Styles'>
+          <file name='(bootstrap).less'>Bootstrap less files</file>
+          <file name='(other).less'>Other less files</file>
+        </folder>
+        <folder name='Views'>
+          <folder name='(ControllerName)'>
+            <file name='(Action).cshtml'>HTML template razors</file>
+          </folder>
+          <folder name='Shared'>
+            <file name='_Layout.cshtml'>Site layout razor</file>
+          </folder>
+        </folder>
+        <file name='favicon.ico'>Favorite icon</file>
+        <file name='Global.asax'>MvcApplication code</file>
+        <file name='packages.config'>Nuget packages</file>
+        <file name='Web.config'>Site configuration</file>
+      </folder>");
+      }
+      @Folder(project)
+    </section>
+
+    <section id="view">
+      <div class="row-fluid">
+        <div class="span2">
+          <svg width="120" height="120">
+            <g>
+              <circle r="48" cy="60" cx="60" fill="#006da2"/>
+              <text text-anchor="middle" font-family="Segoe UI Semibold" font-size="68" y="84" x="61" fill="#ffffff">V</text>
+            </g>
+          </svg>
+        </div>
+        <div class="span10">
+          <h2>View</h2>
+          <ul>
+            <li>Renders the data (Model) for display to the user</li>
+            <li>Contains no business logic</li>
+            <li>Only view logic</li>
+            <li>Typically results in <abbr title="Hypertext Markup Language">HTML</abbr></li>
+            <li>Can be entire page or partial</li>
+      @*The view renders the model into a form suitable for interaction, typically a user interface element. Multiple views can exist for a single model for different purposes. A view port typically has a one to one correspondence with a display surface and knows how to render to it.*@
+
+          </ul>
+        </div>
+      </div>
+      <div class="alert alert-info">
+        <strong>One model - One view?</strong> You can use multiple views for a single model. For example: layout view, content/page view, partial view. When you have multiple models and views, this is known as <strong>composition</strong>.
+      </div>
+      <h4>View engines</h4>
+      <ul>
+        <li>
+          <strong>WebForms</strong> <i class="icon-arrow-right"></i> Classic ASPX files with <code>&lt;% %&gt;</code>
+        </li>
+        <li>
+          <strong>Spark</strong> <i class="icon-arrow-right"></i> Everything looks like <code>&lt;html&gt;</code>
+        </li>
+        <li>
+          <strong>Razor</strong> <i class="icon-arrow-right"></i> Awesome mix of C# <code>@@code</code> and <code>&lt;html&gt;</code>
+        </li>
+      </ul>
+
+      <h4>Helpers</h4>
+      <ul>
+        <li>HtmlHelper</li>
+        <li>UrlHelper</li>
+        <li>Extending</li>
+      </ul>
+
+      <h4><abbr title="Hypertext Markup Language">HTML</abbr></h4>
+      <ul>
+        <li>Language of the web</li>
+        <li>Declaritive</li>
+        <li>Semantic</li>
+        <li>Tags <i class="icon-arrow-right"></i> <a href="@Url.Action("Style")">see style</a> for examples</li>
+        <li><strong>You need to know it!</strong>          
+          <a href="http://sixrevisions.com/web_design/should-web-designers-know-html-and-css/"><i class="icon-link"></i></a>
+          <a href="http://codebetter.com/karlseguin/2010/03/11/webforms-vs-mvc-again/"><i class="icon-link"></i></a>
+        </li>
+      </ul>
+    </section>
+
+        </div>
+        </div>
+
+@helper Folder(XElement folder)
+{
+    <i class="icon-folder-open"></i> <strong>@folder.Attribute("name").Value</strong>
+    <ol class="unstyled" style="margin-left:10px">      
+      @foreach (var subfolder in folder.Elements("folder"))
+      {
+        @Folder(subfolder)
+      }
+      @foreach (var file in folder.Elements("file"))
+      {
+        <li><i class="icon-file"></i> <strong>@file.Attribute("name").Value</strong> <span class="muted">@Html.Raw(file.Value)</span></li>
+      }
+    </ol>
+}

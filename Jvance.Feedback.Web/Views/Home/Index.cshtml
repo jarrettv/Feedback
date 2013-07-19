@@ -1,0 +1,31 @@
+﻿@using Aaa.Common;
+@using JVance.Feedback.Web.Models;
+
+@{
+    ViewBag.Title = "Home Page";  
+}
+
+@model HomeIndexModel
+
+<h2>Current</h2>
+@if (this.Model.CurrentPresentation != null)
+{
+<div class="alert alert-info">
+  <small style="float:right"><i class="icon-time fade in"></i> started @Html.DateTimeAgoAbbreviation(this.Model.CurrentPresentation.Date)</small>
+  <h4>@this.Model.CurrentPresentation.Title</h4>
+  <p>
+    @Html.Raw(this.Model.CurrentPresentation.Description)
+    </p>
+  <button class="btn btn-info">Give Feedback</button>
+</div>
+}
+else
+{
+  <div class="alert alert-info">
+    <h4>None right now</h4>
+    <p>Please check below for upcoming presentations or for recently completed presentations.</p>
+  </div>
+}
+
+<h2>Upcoming</h2>
+

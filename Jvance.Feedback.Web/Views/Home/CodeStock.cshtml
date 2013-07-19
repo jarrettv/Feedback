@@ -1,0 +1,432 @@
+﻿@{
+    ViewBag.Title = "CodeStock";
+}
+
+  <style>
+    section {margin-bottom:180px}
+    .icon-5 {font-size:72px}
+  </style>
+
+<section id="intro">
+  <h2>Bootstrap an MVC Website</h2>
+  <div class="row">
+    <div class="span4">
+      <i class="icon-laptop icon-5"></i>
+      <ol>
+        <!-- start off with explaining bootstrap, why it is awesome -->
+        <li>Bootstrap</li>
+        <!-- just need something that can generate the html -->
+        <li>MVC</li>
+        <!-- assume you know basics, will show you my tricks -->
+        <li>Getting started</li>
+        <!-- demo time, getting started -->
+        <li>What do we get?</li>
+        <!-- dive deeper -->
+        <li>My style</li>
+        <!-- show chronos -->
+        <li>LESS</li>
+        <li>Navigation</li>
+        <li>Modal</li>
+        <li>Save</li>
+      </ol>
+    </div>
+    <div class="span8">
+      <p>
+        <a href="">Bootstrap</a> by Twitter is taking over the internet. It seems like all new websites are using this powerful front-end framework. In this session, I’ll take a look at why bootstrap is awesome and I’ll teach you how to apply it to an ASP.NET MVC web application.
+      </p>
+      <dl>
+        <dt>Technology</dt>
+        <dd>Design, HTML, CSS, jQuery, C#, ASP.NET MVC, EF</dd>
+
+        <dt>Level</dt>
+        <dd>Intermediate</dd>
+
+        <dt>Area</dt>
+        <dd>Developer</dd>
+
+        <dt>Speaker</dt>
+        <dd>Jarrett Vance <small class="muted">CTS, Inc.</small> <a href="https://twitter.com/jarrettv">@@jarrettv</a>
+        <address><a href="mailto:jvance@askcts.com">jvance@askcts.com</a></address>
+        </dd>
+
+      </dl>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="bootstrap">
+  <h3>Bootstrap</h3>
+  <i class="icon-twitter icon-5 pull-right"></i>
+  <ul>    
+    <li>Very popular front-end framework</li>
+    <li>Created by two guys at twitter (<a href="https://twitter.com/twisitor/status/350344961998323712">I was just there</a>)</li>
+    <li>Great documenation at the <a href="http://twitter.github.io/bootstrap/">website</a></li>
+    <li>Provides you the html, grid system, components, and a good starting design</li>
+    <!-- lets face it, most of us aren't good at design -->
+    <li>Easily switch in a new theme via <a href="http://bootswatch.com/">bootswatch</a></li>
+  </ul>
+</section>
+
+<section id="mvc">
+  <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
+       xmlns:cc="http://creativecommons.org/ns#"
+       xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+       xmlns:svg="http://www.w3.org/2000/svg"
+       xmlns="http://www.w3.org/2000/svg"
+       xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+       xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+       sodipodi:docname="mvc2.svg"
+       inkscape:version="0.48.2 r9819"
+       version="1.1"
+       id="svg2"
+       height="235.53438"
+       width="290.35269" style="float:right">
+    <sodipodi:namedview id="base"
+                        pagecolor="#ffffff"
+                        bordercolor="#666666"
+                        borderopacity="1.0"
+                        inkscape:pageopacity="0.0"
+                        inkscape:pageshadow="2"
+                        inkscape:zoom="1.4"
+                        inkscape:cx="72.685737"
+                        inkscape:cy="111.26537"
+                        inkscape:document-units="px"
+                        inkscape:current-layer="layer1"
+                        showgrid="false"
+                        inkscape:window-width="1858"
+                        inkscape:window-height="1057"
+                        inkscape:window-x="-8"
+                        inkscape:window-y="-8"
+                        inkscape:window-maximized="1"
+                        fit-margin-top="15"
+                        fit-margin-left="15"
+                        fit-margin-right="15"
+                        fit-margin-bottom="15" />
+    <defs id="defs4">
+      <inkscape:perspective id="perspective4200"
+                            inkscape:persp3d-origin="145.17635 : 78.511459 : 1"
+                            inkscape:vp_z="290.35269 : 117.76719 : 1"
+                            inkscape:vp_y="0 : 1000 : 0"
+                            inkscape:vp_x="0 : 117.76719 : 1"
+                            sodipodi:type="inkscape:persp3d" />
+      <filter id="filterDesaturate"
+              inkscape:label="Desaturate"
+              x="0"
+              y="0"
+              width="1"
+              height="1"
+              inkscape:menu="Color"
+              inkscape:menu-tooltip="Render in shades of gray by reducing saturation to zero"
+              color-interpolation-filters="sRGB">
+        <feColorMatrix id="feColorMatrix3468"
+                       type="saturate"
+                       values="0.5" />
+      </filter>
+    </defs>
+    <metadata id="metadata7">
+      <rdf:RDF>
+        <cc:Work rdf:about="">
+          <dc:format>image/svg+xml</dc:format>
+          <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+          <dc:title />
+        </cc:Work>
+      </rdf:RDF>
+    </metadata>
+    <g transform="translate(-52.142849,-35.219315)"
+       id="layer1"
+       inkscape:groupmode="layer"
+       inkscape:label="Layer 1">
+      <path inkscape:connector-curvature="0"
+            id="path3923"
+            d="m 243.80199,144.4098 -3.48203,3.48203 5.20728,5.20728 5.20728,5.20728 -3.36942,3.36942 -3.36941,3.36941 -5.20456,-5.20456 -5.20455,-5.20455 -3.71353,3.6315 -3.71353,3.6315 0.56605,-10.17375 0.56606,-10.17377 0.93527,-0.0349 c 2.90058,-0.10815 16.8416,-0.55257 17.85611,-0.56923 l 1.20101,-0.0197 -3.48203,3.48203 0,0 z"
+            style="fill:#000000;fill-opacity:1;stroke:none" />
+      <path inkscape:connector-curvature="0"
+            id="path3923-4"
+            d="m 162.63516,158.34146 -3.48204,-3.48204 -5.20727,5.20728 -5.20728,5.20729 -3.36942,-3.36942 -3.36941,-3.36942 5.20455,-5.20455 5.20456,-5.20456 -3.63151,-3.71353 -3.6315,-3.71353 10.17376,0.56606 10.17376,0.56605 0.0349,0.93527 c 0.10815,2.90058 0.55257,16.8416 0.56923,17.85611 l 0.0197,1.20102 -3.48203,-3.48203 0,0 z"
+            style="fill:#000000;fill-opacity:1;stroke:none" />
+      <path inkscape:connector-curvature="0"
+            id="path3923-0"
+            d="m 195.73637,201.07356 0,4.92434 7.3642,0 7.36421,0 0,4.76507 0,4.76507 -7.36036,0 -7.36035,0 -0.058,5.19373 -0.058,5.19371 -6.79367,-7.59419 -6.79368,-7.59419 0.63668,-0.686 c 1.97455,-2.12749 11.51809,-12.29953 12.22367,-13.02868 l 0.8353,-0.86319 0,4.92433 0,0 z"
+            style="fill:#000000;fill-opacity:1;stroke:none" />
+      <g id="model"
+         inkscape:label="#g3037">
+        <path sodipodi:type="arc"
+              style="fill:#006da2;fill-opacity:1;stroke:none"
+              id="path3111"
+              sodipodi:cx="370"
+              sodipodi:cy="416.64789"
+              sodipodi:rx="104.28571"
+              sodipodi:ry="104.28571"
+              d="m 474.28571,416.64789 c 0,57.59541 -46.6903,104.28571 -104.28571,104.28571 -57.59541,0 -104.28571,-46.6903 -104.28571,-104.28571 0,-57.59541 46.6903,-104.28572 104.28571,-104.28572 57.59541,0 104.28571,46.69031 104.28571,104.28572 z"
+              transform="matrix(0.42883477,0,0,0.42883477,37.583884,-83.732446)" />
+        <text xml:space="preserve"
+              style="font-size:59.13460541px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#ffffff;fill-opacity:0.6935484;stroke:none;font-family:Segoe UI Semibold;-inkscape-font-specification:'Segoe UI Semibold, Semi-Bold'"
+              x="168.90877"
+              y="115.64354"
+              id="text4555"
+              sodipodi:linespacing="125%"><tspan sodipodi:role="line"
+                                                 id="tspan4557"
+                                                 x="168.90877"
+                                                 y="115.64354">M</tspan></text>
+      </g>
+      <g id="view"
+         inkscape:label="#g3047">
+        <path sodipodi:type="arc"
+              style="fill:#0088cc;fill-opacity:1;stroke:none"
+              id="path3111-1"
+              sodipodi:cx="370"
+              sodipodi:cy="416.64789"
+              sodipodi:rx="104.28571"
+              sodipodi:ry="104.28571"
+              d="m 474.28571,416.64789 c 0,57.59541 -46.6903,104.28571 -104.28571,104.28571 -57.59541,0 -104.28571,-46.6903 -104.28571,-104.28571 0,-57.59541 46.6903,-104.28572 104.28571,-104.28572 57.59541,0 104.28571,46.69031 104.28571,104.28572 z"
+              transform="matrix(0.42883477,0,0,0.42883477,-46.804676,32.359256)" />
+        <text xml:space="preserve"
+              style="font-size:63.21509933px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:0.6935484;stroke:none;font-family:Segoe UI Semibold;-inkscape-font-specification:'Segoe UI Semibold, Semi-Bold'"
+              x="91.569305"
+              y="233.16382"
+              id="text4555-1"
+              sodipodi:linespacing="125%"><tspan sodipodi:role="line"
+                                                 id="tspan4557-6"
+                                                 x="91.569305"
+                                                 y="233.16382">V</tspan></text>
+      </g>
+      <g id="controller"
+         inkscape:label="#g3042">
+        <path sodipodi:type="arc"
+              style="fill:#009de4;fill-opacity:1;stroke:none"
+              id="path3111-1-7"
+              sodipodi:cx="370"
+              sodipodi:cy="416.64789"
+              sodipodi:rx="104.28571"
+              sodipodi:ry="104.28571"
+              d="m 474.28571,416.64789 c 0,57.59541 -46.6903,104.28571 -104.28571,104.28571 -57.59541,0 -104.28571,-46.6903 -104.28571,-104.28571 0,-57.59541 46.6903,-104.28572 104.28571,-104.28572 57.59541,0 104.28571,46.69031 104.28571,104.28572 z"
+              transform="matrix(0.42883477,0,0,0.42883477,121.97242,32.359256)" />
+        <text xml:space="preserve"
+              style="font-size:63.21509933px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:0.6935484;stroke:none;font-family:Segoe UI Semibold;-inkscape-font-specification:'Segoe UI Semibold, Semi-Bold'"
+              x="259.14893"
+              y="233.16382"
+              id="text4555-1-8"
+              sodipodi:linespacing="125%"><tspan sodipodi:role="line"
+                                                 id="tspan4557-6-8"
+                                                 x="259.14893"
+                                                 y="233.16382">C</tspan></text>
+      </g>
+    </g>
+  </svg>
+  <h3>ASP.NET MVC</h3>
+  <ul>
+    <li>Mature web framework</li>
+    <li>Utilizes good separation of concerns</li>
+    <!-- I'm not going to go into the details of model-view-controller, I assume you know how that works -->
+    <li>Comes with a <a href="http://i2.asp.net/media/45041/mvc4-restyled-templates.png?raw=true&cdn_id=2013-07-02-001">fugly</a> stylesheet <label class=" label label-info">MVC4</label></li>
+    <li>Next version comes with bootstrap! Hooray! <label class="label label-important">MVC5</label></li>
+  </ul>
+</section>
+
+<section id="start">
+  <h3>Getting Started</h3>
+  <div class="row">
+    <div class="span6">
+      <label class="label label-info">VS2012+nuget</label>
+      <ul>
+        <li>Create new ASP.NET <strong>Empty</strong> Web Application project</li>
+        <li><code>Install-Package Twitter.Bootstrap.mvc4.sample</code></li>
+      </ul>
+    </div>
+    <div class="span6">
+      <label class="label label-important">VS2013</label>
+      <ul>
+        <li>Create new ASP.NET Web Application project</li>
+        <li>Choose <strong>MVC</strong> template</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="get">
+  <h3>What do we get?</h3>
+  <div class="row">
+    <div class="span6">
+      <label class="label label-info">VS2012+nuget</label>
+      <ul>
+        <li>BundleConfig updated for bootstrap</li>
+        <li>Multiple layout files</li>
+        <li>Html helpers for creating alerts and control groups</li>
+        <li>Tweaks to support validation errors</li>
+        <li>Navigation route system</li>
+        <li>Quick scaffolding of index/edit/details</li>
+        <li><a href="http://lostechies.com/erichexter/2012/12/24/twitter-bootstrap-mvc4-new-release-1-0-71/">More info</a> from Eric Hexter</li>
+      </ul>
+    </div>
+    <div class="span6">
+      <label class="label label-important">VS2013</label>
+      <ul>
+        <li>BundleConfig preconfigured for bootstrap</li>
+        <li>Single fixed layout preconfigured</li>
+        <li>Small css overrides (hacks) for validation errors</li>
+        <li>Visual Studio tooling support</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<section id="mystyle">
+  <h3>My style</h3>
+  <ul class="unstyled">
+    <li><i class="text-success icon-ok-sign icon-large"></i> Prefer using <a href="http://lesscss.org/">less</a> over css</li>
+    <li><i class="text-success icon-ok-sign icon-large"></i> Prefer font-icons (vectors rather than images)</li>
+    <li><i class="text-success icon-ok-sign icon-large"></i> Prefer menu system seperate from routes</li>
+    <li><i class="text-success icon-ok-sign icon-large"></i> Prefer modal dialog edit workflow </li>
+    <li><i class="text-error icon-minus-sign icon-large"></i> Avoid javascript if possible</li>
+  </ul>
+</section>
+
+<section id="less">
+  <h3>LESS <small>is more</small></h3>
+  <ul>
+    <li>Create Styles folder and load less files from <a href="https://github.com/twitter/bootstrap">github</a></li>
+    <li><code>Install-Package System.Web.Optimization.Less</code></li>
+    <li>Update BundleConfig to include <code>LessBundle</code></li>
+  </ul>
+  <div class="alert alert-error">
+    <strong>VS2013 Issue</strong><br/>    
+    By default, bundling is disabled in debug mode; therefore less files are served using the less http handler. In 2013, the handler returns blank files unless you add the following attribute to the web.config.
+    <code>&lt;dotless minifycss="false" cache="true" web="false" <strong>handlewebcompression="false"</strong> /></code>
+  </div>
+</section>
+
+<section id="font">
+  <h3>Font-Awesome <small>361 scalable icons</small></h3>
+  <div class="row">
+    <div class="span7">
+      <ul>
+        <li>Download <a href="http://fortawesome.github.io/Font-Awesome/">font-awesome</a></li>
+        <li>Add fonts to Content folder</li>
+        <li>Replace sprites.less import with fontawesome.less</li>
+        <li>Fix <code>@@FontAwesomePath</code> in fontawesome/variables.less</li>
+      </ul>
+    </div>
+    <div class="span5">
+      <div class="well  well-small">
+        <i class="pull-left icon-globe icon-5 icon-fade" style="margin:0 20px"></i>
+        <h4>Other Vector Icons</h4>
+        <ul class="unstyled">
+          <li><a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&ved=0CDAQFjAA&url=http%3A%2F%2Ficomoon.io%2F&ei=w8rgUfvqM8qpqgGDmYHADA&usg=AFQjCNHjyvhH6V7E34of59nds3oBg3uVBA&sig2=tBieBMLi4MtWw-PpiUQiuw&bvm=bv.48705608,d.aWM">IcoMoon</a></li>
+          <li><a href="http://thenounproject.com">The Noun Project</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <h3>Menu</h3>
+  <ul>
+    <li>Add menu files</li>
+    <li>Update layout</li>
+    <li>Create MenuConfig</li>
+    <li>Register in the MenuTable</li>
+    <li>Prefer named routes since faster</li>
+    <li>Authorization support</li>
+  </ul>
+</section>
+
+<section id="modal">
+  <h3>Modal <small>for data entry</small></h3>
+  <div class="row">
+    <div class="span5">
+      <ul>
+        <li>Add <a href="http://twitter.github.io/bootstrap/javascript.html#modals">data-attributes</a> to button</li>
+        <li>Add <code>&lt;div id="dialog">&lt;/div></code></li>
+        <li>Create a razor partial</li>
+        <li>Small tweaks to bootstrap-modal.js to support full dialog</li>
+        <li><code>BoostrapTextBoxFor</code></li>
+      </ul>
+    </div>
+    <div class="span7">
+      <div class="alert alert-info">
+        <i class="icon-code-fork icon-5 pull-right"></i>
+        <strong>Modal Fork</strong><br />
+        I've improved the modal dialog with the following features:
+        <ul>
+          <li>Support ajax remote of head, body, footer rather than just body</li>
+          <li>Show progress bar while loading</li>
+          <li>Fire loading and loaded events</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="save">
+  <h3><i class="icon-save"></i> bootstrap-save.js <small>add-on component</small></h3>
+  <ul>
+    <li>Add <a href="">file</a> to scripts folder</li>
+    <li>Add the <code>data-submit="save"</code> to form tag</li>
+    <li>Save plugin turns form into AJAX</li>
+    <li>Supports 
+      <span class="label label-success" title="success">200</span>
+      <span class="label label-success" title="refresh">205</span>
+      <span class="label label-error" title="error">400</span>
+    </li>
+    <li>Automatically refreshes row</li>
+    <li>Tiny payload</li>
+  </ul>
+</section>
+
+<section id="cts">
+
+  <i style="font-size:100px; margin-bottom: 30px" class="icon-question-sign text-info pull-center"></i>
+
+  <h3><a href="http://www.askcts.com">askcts.com</a> <small>Computer Technology Solutions</small></h3>
+  <div class="row">
+    <div class="span6">
+      <ul>
+        <li>
+          Offices throughout southeast
+          <ul>
+            <li>Atlanta</li>
+            <li>Birmingham</li>
+            <li>Charlotte</li>
+            <li>Chattanooga</li>
+            <li>Mobile</li>
+            <li>Nashville</li>
+          </ul>
+        </li>
+        <li>Visit <a href="http://www.askcts.com/careers">www.askcts.com/careers</a></li>
+      </ul>
+    </div>
+    <div class="span6">
+      <i class="icon-github icon-5 text-info pull-right"></i>
+      <ul>
+        <li><strong>Jarrett Vance</strong> <small class="muted">Architect</small></li>
+        <li><a href="https://twitter.com/jarrettv">@@jarrettv</a></li>
+        <li>jvance@askcts.com</li>
+        <li>Code on <a href="http://github.com/jarrettv">github.com/jarrettv</a></li>
+      </ul>
+    </div>
+  </div>
+  
+</section>
+
+@section Scripts {
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var divs = $('.icon-fade');
+      divs.hide();
+      $(window).scroll(function () {
+        divs.each(function () {
+          console.debug($(window).scrollTop() + $(window).height() + ' > ' + $(this).position().top)
+          if ($(window).scrollTop() + $(window).height() > $(this).position().top) {
+            console.debug('yo!');
+            $(this).stop(true, true).fadeIn("slow");
+          }
+        });
+      });
+    });
+  </script>
+
+}
